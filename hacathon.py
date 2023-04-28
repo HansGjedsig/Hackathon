@@ -12,16 +12,14 @@ ex1 = True
 ex2 = True
 ex3 = True
 
-test = np.array(ds1.variables['tempanomaly'][1419,:,:])
-
 if ex1:
     lats = ds1.variables['lat'][:]
     longs = ds1.variables['lat'][:]
 
     X,Y = np.meshgrid(lats,longs)
     predictions = []
-    for i in range(13):
-        Tempdata = np.array(ds1.variables['tempanomaly'][1419-i,:,:])
+    for i in range(12):
+        Tempdata = np.array(ds1.variables['tempanomaly'][1408+i,:,:])
         print(i)
         x,y=5,5
         dist = np.array(1/np.sqrt((X-lats[y])**2+(Y-longs[x])**2)**4)
@@ -30,8 +28,8 @@ if ex1:
         Tempdata[x,y]=(Tempdata*distweight).sum()
         predictions.append(Tempdata)
     data_CSV = []
-    for i in range(13):
-        data_CSV.append(predictions[12-i][5,5])
+    for i in range(12):
+        data_CSV.append(predictions[i][5,5])
     df= pd.DataFrame(data_CSV)
     df.to_csv("ex1.csv",index=False)
 
@@ -41,8 +39,8 @@ if ex2:
 
     X,Y = np.meshgrid(lats,longs)
     predictions = []
-    for i in range(13):
-        Tempdata = np.array(ds2.variables['tempanomaly'][1419-i,:,:])
+    for i in range(12):
+        Tempdata = np.array(ds2.variables['tempanomaly'][1408+i,:,:])
         print(i)
         for x in range(5,7):
             for y in range(4,6):
@@ -52,8 +50,8 @@ if ex2:
                 Tempdata[x,y]=(Tempdata*distweight).sum()
         predictions.append(Tempdata)
     data_CSV = []
-    for i in range(13):
-        data_CSV.append(predictions[12-i][5,5])
+    for i in range(12):
+        data_CSV.append(predictions[i][5,5])
     df= pd.DataFrame(data_CSV)
     df.to_csv("ex2.csv",index=False)
 
@@ -63,8 +61,8 @@ if ex3:
 
     X,Y = np.meshgrid(lats,longs)
     predictions = []
-    for i in range(13):
-        Tempdata = np.array(ds3.variables['tempanomaly'][1419-i,:,:])
+    for i in range(12):
+        Tempdata = np.array(ds3.variables['tempanomaly'][1408+i,:,:])
         print(i)
         for x in range(4,7):
             for y in range(4,7):
@@ -74,8 +72,8 @@ if ex3:
                 Tempdata[x,y]=(Tempdata*distweight).sum()
         predictions.append(Tempdata)
     data_CSV = []
-    for i in range(13):
-        data_CSV.append(predictions[12-i][5,5])
+    for i in range(12):
+        data_CSV.append(predictions[i][5,5])
     df= pd.DataFrame(data_CSV)
     df.to_csv("ex3.csv",index=False)
     
